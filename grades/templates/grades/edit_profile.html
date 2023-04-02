@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<form method="POST" action="{% url 'profile_edit' %}">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% trans "Обновить" as button_text %}
+  {% bootstrap_button button_text button_type="submit" extra_classes="secondaryAction w-100" %}
+</form>
+{% endblock %}

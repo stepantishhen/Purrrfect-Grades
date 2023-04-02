@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>PurrrfectGrades</title>
+    <link rel="icon" href="{% static 'grades/assets/img/cat-footprint-50.png' %}">
+    <link rel="stylesheet" href="{% static 'grades/assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'grades/assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'grades/assets/css/Hero-Clean-Reverse-images.css' %}">
+    <link rel="stylesheet" href="{% static 'grades/assets/css/Navbar-Centered-Links-icons.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md py-3" data-bs-target="#navcol-3" data-bs-spy="scroll">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'profile' %}{% endif %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+            <img src="{% static 'grades/assets/img/cat-footprint-50.png' %}" alt="" height="25" style="filter: invert(100%)">
+                        <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                    </svg></span><span>PurrrfectGrades</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+           {% if user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navcol-3">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'statistic' %}">Статистика</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-target="link-1" href="{% url 'grades_add' %}">Добавить оценку</a></li>
+                </ul>
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="{% url 'profile' %}">
+                        {{ user.username }}
+                    </a>
+                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" type="button"></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'profile_edit' %}">Редактировать профиль</a>
+                        <a class="dropdown-item" href="{% url 'account_logout' %}">Выход</a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    <section class="py-4 py-xl-5">
+        <div class="container">
+            <div class="row mb-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'grades/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'grades/assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'grades/assets/js/untitled.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<form method="POST" action="{% url 'grades_add' %}">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% trans "Сохранить" as button_text %}
+  {% bootstrap_button button_text button_type="submit" extra_classes="secondaryAction w-100" %}
+</form>
+<ul class="list-group mt-3">
+  {% for x in grades %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+       <div class="ms-2 me-auto">
+        <div class="fw-bold">{{ x.subject }} - {{ x.grade }} </div>
+         Создано: {{ x.created_at }}
+       </div>
+      <a class="btn btn-outline-danger" href="{% url 'grade_delete' x.pk %}">Удалить</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

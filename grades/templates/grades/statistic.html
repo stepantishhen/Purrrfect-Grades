@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [{% for i in data.keys %} '{{ i }}', {% endfor %}],
+      datasets: [{
+        label: '- сумма баллов по дисциплине',
+        data: [{% for i in data.values %} '{{ i }}', {% endfor %}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
