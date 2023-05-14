@@ -1,1 +1,205 @@
-[{"model": "admin.logentry", "pk": 1, "fields": {"action_time": "2023-05-14T16:05:24.128Z", "user": 1, "content_type": 8, "object_id": "1", "object_repr": "Домашняя работа", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 2, "fields": {"action_time": "2023-05-14T16:05:45.206Z", "user": 1, "content_type": 8, "object_id": "2", "object_repr": "Посещаемость", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 3, "fields": {"action_time": "2023-05-14T16:05:49.985Z", "user": 1, "content_type": 8, "object_id": "3", "object_repr": "Контрольная работа", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 4, "fields": {"action_time": "2023-05-14T16:06:03.937Z", "user": 1, "content_type": 8, "object_id": "4", "object_repr": "Дополнительные баллы", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 5, "fields": {"action_time": "2023-05-14T16:06:27.483Z", "user": 1, "content_type": 7, "object_id": "1", "object_repr": "Алгебра и Геометрия", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 6, "fields": {"action_time": "2023-05-14T16:06:45.952Z", "user": 1, "content_type": 7, "object_id": "2", "object_repr": "Математический Анализ", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 7, "fields": {"action_time": "2023-05-14T16:07:02.313Z", "user": 1, "content_type": 7, "object_id": "3", "object_repr": "Информатика и программирование", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "admin.logentry", "pk": 8, "fields": {"action_time": "2023-05-14T16:09:11.391Z", "user": 1, "content_type": 8, "object_id": "5", "object_repr": "Экзамен", "action_flag": 1, "change_message": "[{\"added\": {}}]"}}, {"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$600000$uAz6nTfWendHSRqaN9heNX$UBxZJCWB2Ujp36UVmlss55KIBxsL41uxiZU9rf0Ng/o=", "last_login": "2023-05-14T16:05:06.724Z", "is_superuser": true, "username": "admin", "first_name": "", "last_name": "", "email": "", "is_staff": true, "is_active": true, "date_joined": "2023-05-14T16:04:47.882Z", "groups": [], "user_permissions": []}}, {"model": "sessions.session", "pk": "hiu01kncw05790q5v07qsk70i1nwy8d1", "fields": {"session_data": ".eJxVjE0OwiAYBe_C2hBKobRduvcMhO8HixowpU00xrtrky50-2bevIQP6zL5tfLsE4lRNOLwu0HAK-cN0CXkc5FY8jInkJsid1rlqRDfjrv7F5hCnb7vaChCa7BTNFC0SIH62DpEzdFZjRx0C43moUer0BpoXEexA-MYNGm1RSvXmkr2_Lin-SlG9f4A4bdAWg:1pyEDa:FrIx8hyS6-a8kwTgn4rIhP5q8lxc9jiQe1cX0OUu_pc", "expire_date": "2023-05-28T16:05:06.739Z"}}, {"model": "grades.subject", "pk": 1, "fields": {"name": "Алгебра и Геометрия", "teacher": "Ильин Сергей", "created_at": "2023-05-14T16:06:27.481Z", "updated_at": "2023-05-14T16:06:27.481Z"}}, {"model": "grades.subject", "pk": 2, "fields": {"name": "Математический Анализ", "teacher": "Широкова Елена", "created_at": "2023-05-14T16:06:45.951Z", "updated_at": "2023-05-14T16:06:45.951Z"}}, {"model": "grades.subject", "pk": 3, "fields": {"name": "Информатика и программирование", "teacher": "Абрамский Михаил", "created_at": "2023-05-14T16:07:02.312Z", "updated_at": "2023-05-14T16:07:02.312Z"}}, {"model": "grades.worktype", "pk": 1, "fields": {"name": "Домашняя работа", "weight": 1.0}}, {"model": "grades.worktype", "pk": 2, "fields": {"name": "Посещаемость", "weight": 1.0}}, {"model": "grades.worktype", "pk": 3, "fields": {"name": "Контрольная работа", "weight": 1.0}}, {"model": "grades.worktype", "pk": 4, "fields": {"name": "Дополнительные баллы", "weight": 1.0}}, {"model": "grades.worktype", "pk": 5, "fields": {"name": "Экзамен", "weight": 1.0}}, {"model": "grades.student", "pk": 1, "fields": {"user": 1, "name": "Админ", "surname": "Админов", "institution": "ИТИС", "group": "11-206", "created_at": "2023-05-14T16:04:48.070Z", "updated_at": "2023-05-14T16:07:41.079Z", "subjects": [1, 2, 3]}}, {"model": "grades.grade", "pk": 1, "fields": {"student": 1, "subject": 1, "work_type": 2, "grade": 1, "receipt_at": "2023-05-14", "created_at": "2023-05-14T16:07:53.531Z", "updated_at": "2023-05-14T16:07:53.531Z"}}, {"model": "grades.grade", "pk": 2, "fields": {"student": 1, "subject": 1, "work_type": 3, "grade": 10, "receipt_at": "2023-05-15", "created_at": "2023-05-14T16:08:10.626Z", "updated_at": "2023-05-14T16:08:10.626Z"}}, {"model": "grades.grade", "pk": 3, "fields": {"student": 1, "subject": 2, "work_type": 2, "grade": 1, "receipt_at": "2023-05-14", "created_at": "2023-05-14T16:08:25.938Z", "updated_at": "2023-05-14T16:08:25.938Z"}}, {"model": "grades.grade", "pk": 4, "fields": {"student": 1, "subject": 3, "work_type": 3, "grade": 20, "receipt_at": "2023-05-14", "created_at": "2023-05-14T16:08:47.385Z", "updated_at": "2023-05-14T16:08:47.385Z"}}, {"model": "sites.site", "pk": 1, "fields": {"domain": "example.com", "name": "example.com"}}]
+- model: admin.logentry
+  pk: 1
+  fields:
+    action_time: 2023-05-14 16:05:24.128007+00:00
+    user: 1
+    content_type: 8
+    object_id: '1'
+    object_repr: Домашняя работа
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 2
+  fields:
+    action_time: 2023-05-14 16:05:45.206890+00:00
+    user: 1
+    content_type: 8
+    object_id: '2'
+    object_repr: Посещаемость
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 3
+  fields:
+    action_time: 2023-05-14 16:05:49.985131+00:00
+    user: 1
+    content_type: 8
+    object_id: '3'
+    object_repr: Контрольная работа
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 4
+  fields:
+    action_time: 2023-05-14 16:06:03.937352+00:00
+    user: 1
+    content_type: 8
+    object_id: '4'
+    object_repr: Дополнительные баллы
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 5
+  fields:
+    action_time: 2023-05-14 16:06:27.483599+00:00
+    user: 1
+    content_type: 7
+    object_id: '1'
+    object_repr: Алгебра и Геометрия
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 6
+  fields:
+    action_time: 2023-05-14 16:06:45.952311+00:00
+    user: 1
+    content_type: 7
+    object_id: '2'
+    object_repr: Математический Анализ
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 7
+  fields:
+    action_time: 2023-05-14 16:07:02.313857+00:00
+    user: 1
+    content_type: 7
+    object_id: '3'
+    object_repr: Информатика и программирование
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 8
+  fields:
+    action_time: 2023-05-14 16:09:11.391700+00:00
+    user: 1
+    content_type: 8
+    object_id: '5'
+    object_repr: Экзамен
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$600000$uAz6nTfWendHSRqaN9heNX$UBxZJCWB2Ujp36UVmlss55KIBxsL41uxiZU9rf0Ng/o=
+    last_login: 2023-05-14 16:05:06.724456+00:00
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: true
+    is_active: true
+    date_joined: 2023-05-14 16:04:47.882549+00:00
+    groups: []
+    user_permissions: []
+- model: sessions.session
+  pk: hiu01kncw05790q5v07qsk70i1nwy8d1
+  fields:
+    session_data: .eJxVjE0OwiAYBe_C2hBKobRduvcMhO8HixowpU00xrtrky50-2bevIQP6zL5tfLsE4lRNOLwu0HAK-cN0CXkc5FY8jInkJsid1rlqRDfjrv7F5hCnb7vaChCa7BTNFC0SIH62DpEzdFZjRx0C43moUer0BpoXEexA-MYNGm1RSvXmkr2_Lin-SlG9f4A4bdAWg:1pyEDa:FrIx8hyS6-a8kwTgn4rIhP5q8lxc9jiQe1cX0OUu_pc
+    expire_date: 2023-05-28 16:05:06.739366+00:00
+- model: grades.subject
+  pk: 1
+  fields:
+    name: Алгебра и Геометрия
+    teacher: Ильин Сергей
+    created_at: 2023-05-14 16:06:27.481600+00:00
+    updated_at: 2023-05-14 16:06:27.481600+00:00
+- model: grades.subject
+  pk: 2
+  fields:
+    name: Математический Анализ
+    teacher: Широкова Елена
+    created_at: 2023-05-14 16:06:45.951310+00:00
+    updated_at: 2023-05-14 16:06:45.951310+00:00
+- model: grades.subject
+  pk: 3
+  fields:
+    name: Информатика и программирование
+    teacher: Абрамский Михаил
+    created_at: 2023-05-14 16:07:02.312718+00:00
+    updated_at: 2023-05-14 16:07:02.312718+00:00
+- model: grades.worktype
+  pk: 1
+  fields:
+    name: Домашняя работа
+    weight: 1.0
+- model: grades.worktype
+  pk: 2
+  fields:
+    name: Посещаемость
+    weight: 1.0
+- model: grades.worktype
+  pk: 3
+  fields:
+    name: Контрольная работа
+    weight: 1.0
+- model: grades.worktype
+  pk: 4
+  fields:
+    name: Дополнительные баллы
+    weight: 1.0
+- model: grades.worktype
+  pk: 5
+  fields:
+    name: Экзамен
+    weight: 1.0
+- model: grades.student
+  pk: 1
+  fields:
+    user: 1
+    name: Админ
+    surname: Админов
+    institution: ИТИС
+    group: 11-206
+    created_at: 2023-05-14 16:04:48.070192+00:00
+    updated_at: 2023-05-14 16:07:41.079376+00:00
+    subjects:
+    - 1
+    - 2
+    - 3
+- model: grades.grade
+  pk: 1
+  fields:
+    student: 1
+    subject: 1
+    work_type: 2
+    grade: 1
+    receipt_at: 2023-05-14
+    created_at: 2023-05-14 16:07:53.531649+00:00
+    updated_at: 2023-05-14 16:07:53.531649+00:00
+- model: grades.grade
+  pk: 2
+  fields:
+    student: 1
+    subject: 1
+    work_type: 3
+    grade: 10
+    receipt_at: 2023-05-15
+    created_at: 2023-05-14 16:08:10.626676+00:00
+    updated_at: 2023-05-14 16:08:10.626676+00:00
+- model: grades.grade
+  pk: 3
+  fields:
+    student: 1
+    subject: 2
+    work_type: 2
+    grade: 1
+    receipt_at: 2023-05-14
+    created_at: 2023-05-14 16:08:25.938778+00:00
+    updated_at: 2023-05-14 16:08:25.938778+00:00
+- model: grades.grade
+  pk: 4
+  fields:
+    student: 1
+    subject: 3
+    work_type: 3
+    grade: 20
+    receipt_at: 2023-05-14
+    created_at: 2023-05-14 16:08:47.385025+00:00
+    updated_at: 2023-05-14 16:08:47.385025+00:00
+- model: sites.site
+  pk: 1
+  fields:
+    domain: example.com
+    name: example.com
