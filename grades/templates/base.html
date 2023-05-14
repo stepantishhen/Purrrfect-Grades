@@ -15,14 +15,14 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-md py-3" data-bs-target="#navcol-3" data-bs-spy="scroll">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'profile' %}{% endif %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'index' %}{% endif %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
             <img src="{% static 'grades/assets/img/cat-footprint-50.png' %}" alt="" height="25" style="filter: invert(100%)">
                         <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                    </svg></span><span>PurrrfectGrades</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    </span><span>PurrrfectGrades</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
            {% if user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navcol-3">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'statistic' %}">Статистика</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-target="link-1" href="#">Калькулятор</a></li>
                     <li class="nav-item"><a class="nav-link active" data-bs-target="link-1" href="{% url 'grades_add' %}">Добавить оценку</a></li>
                 </ul>
                 <div class="btn-group">

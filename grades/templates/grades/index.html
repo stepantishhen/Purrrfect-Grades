@@ -1,4 +1,6 @@
 {% load static %}
+{% load django_bootstrap5 %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="dark">
 
@@ -222,12 +224,15 @@
                         <div class="card mb-5">
                             <div class="card-body p-sm-5">
                                 <h2 class="text-center mb-4">Свяжитесь с нами</h2>
-                                <form method="post">
-                                    <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Имя"></div>
-                                    <div class="mb-3"><input class="form-control" type="email" id="email-2" name="email" placeholder="Email"></div>
-                                    <div class="mb-3"><textarea class="form-control" id="message-2" name="message" rows="6" placeholder="Сообщение"></textarea></div>
-                                    <div class="pt-md-0 mt-md-0"><label class="form-label">Скриншот (необязательно)</label><input class="form-control" type="file"></div>
-                                    <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-md-3 mt-3" type="submit" style="transform: scale(1);">Отправить</button></div>
+                                <form method="POST" action="{% url 'index' %}">
+                                      {% csrf_token %}
+                                      {% bootstrap_form form %}
+                                      {% trans "Отправить" as button_text %}
+                                      {% bootstrap_button button_text button_type="submit" extra_classes="secondaryAction w-100" %}
+{#                                    <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Имя"></div>#}
+{#                                    <div class="mb-3"><input class="form-control" type="email" id="email-2" name="email" placeholder="Email"></div>#}
+{#                                    <div class="mb-3"><textarea class="form-control" id="message-2" name="message" rows="6" placeholder="Сообщение"></textarea></div>#}
+{#                                    <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-md-3 mt-3" type="submit" style="transform: scale(1);">Отправить</button></div>#}
                                 </form>
                             </div>
                         </div>

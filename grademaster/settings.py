@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +23,6 @@ SECRET_KEY = 'django-insecure-p+ad&g6!m3$af%n6wuj=t(*a=u9fci1&2qrx@812%b7(g9@vqw
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.yandex',
     # 'allauth.socialaccount.providers.vk',
     "django_bootstrap5",
+    "bootstrap_datepicker_plus",
 ]
 
 MIDDLEWARE = [
@@ -78,18 +78,6 @@ WSGI_APPLICATION = 'grademaster.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-# DATABASES = {
-#     # postgresql database configuration using psycopg2
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'grademaster',
-#         'USER': 'postgres',
-#         'PASSWORD': 'stepa240935',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 # using sqlite3 database
 DATABASES = {
     'default': {
@@ -97,6 +85,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": os.environ.get("DB_NAME", "postgres"),
+#         "USER": os.environ.get("DB_USER", "postgres"),
+#         "PASSWORD": os.environ.get("DB_PASSWORD", "stepa240935"),
+#         "HOST": os.environ.get("DB_HOST", "localhost"),
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -129,8 +127,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
 STATIC_URL = 'static/'
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static"
+# ]
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+#     os.path.join(BASE_DIR, 'staticfiles'),
+# )
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -147,3 +152,5 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'account_login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

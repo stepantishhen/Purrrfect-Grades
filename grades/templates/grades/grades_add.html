@@ -3,6 +3,10 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
 {% block content %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    {{ form.media }}
 <form method="POST" action="{% url 'grades_add' %}">
   {% csrf_token %}
   {% bootstrap_form form %}
@@ -14,7 +18,7 @@
     <li class="list-group-item d-flex justify-content-between align-items-start">
        <div class="ms-2 me-auto">
         <div class="fw-bold">{{ x.subject }} - {{ x.grade }} </div>
-         Создано: {{ x.created_at }}
+         Получена: {{ x.receipt_at }}
        </div>
       <a class="btn btn-outline-danger" href="{% url 'grade_delete' x.pk %}">Удалить</a>
     </li>

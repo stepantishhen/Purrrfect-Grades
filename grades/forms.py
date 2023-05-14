@@ -1,5 +1,6 @@
 from django import forms
 from django.db.models import Sum
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 from grades.models import *
 
@@ -17,6 +18,11 @@ class AddGradeForm(forms.Form):
             queryset=WorkType.objects.all(),
             label="Тип работы", help_text="Выберите тип работы"
         )
+        self.fields['receipt_at'] = forms.DateField(label="Дата получения оценки", widget=DatePickerInput(attrs={"class": "form-control", "placeholder": "DD/MM/YY"},
+        options={
+            "format": "DD/MM/YYYY",
+            "showTodayButton": True,
+        },))
     def clean(self):
         cleaned_data = super().clean()
         grade = cleaned_data.get('grade')
@@ -31,7 +37,11 @@ class AddGradeForm(forms.Form):
 class EditStudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ["name", "surname","institution", "group", "subjects", "purpose"]
+        fields = ["name", "surname", "institution", "group", "subjects"]
         widgets = {
             'subjects': forms.CheckboxSelectMultiple,
         }
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=150, label="Имя")
+    email = forms.EmailField(max_length=150)
+    message = forms.CharField(widget=forms.Textarea(), max_length=2000, label="Сообщение")
