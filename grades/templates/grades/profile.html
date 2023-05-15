@@ -58,26 +58,10 @@
     type: 'line',
     data: {
       labels: [
-            '1.09', '2.09', '6.09', '15.09', '10.10'
+            {% for month in monthly_grades.keys %}
+            '{{ month }}',
+            {% endfor %}
         ],
-        datasets: [{
-            label: 'матан',
-            data: [
-                10, 20, 0, 60, 70
-            ],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 0, 132, 1)',
-            borderWidth: 1
-        },
-        {
-            label: 'алгем',
-            data: [
-                1, 2, 30, 6, 7
-            ],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 0, 1)',
-            borderWidth: 1
-        }]
     },
     options: {
       scales: {

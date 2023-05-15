@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<form method="POST" action="{% url 'profile_edit' %}">
+  {% csrf_token %}
+    {% for subject in subjects %}
+        <label for="customRange{{ counter }}" class="form-label">{{ subject.name }}</label>
+        <input type="range" class="form-range" id="customRange{{ counter }}">
+        {% with counter=counter|add:1 %}
+        {% endwith %}
+    {% endfor %}
+</form>
+{% endblock %}

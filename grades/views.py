@@ -1,3 +1,5 @@
+import random
+
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -31,10 +33,10 @@ def index(request):
 
 
 def profile(request):
-    try:
-        data = SocialAccount.objects.get(user=request.user).extra_data
-    except:
-        data = request.user
+    # try:
+    #     data = SocialAccount.objects.get(user=request.user).extra_data
+    # except:
+    #     data = request.user
     student = request.user.student
     subjects = student.subjects.all()
 
@@ -42,22 +44,36 @@ def profile(request):
     monthly_grades = {}  # словарь для хранения суммы оценок по месяцам
 
     for subject in subjects:
-        try:
-            grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
-            total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
-            avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
-            remaining_points = student.purpose - total_grade if student.purpose > total_grade and student.purpose is not None else 0
-        except:
-            total_grade = 0
-            avg_grade = 0
-            remaining_points = 0
+        grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
+        total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
+        avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
+        remaining_points = Purpose.objects.filter(student=student, subject=subject).first().value - total_grade if Purpose.objects.filter(student=student, subject=subject).first() is not None else 0
+
 
         # вычисляем сумму оценок по месяцам
         for grade in grades:
-            month = grade.created_at.strftime('%B %Y')
-            if month not in monthly_grades:
-                monthly_grades[month] = 0
-            monthly_grades[month] += grade.grade
+            month = grade.receipt_at.strftime('%B %Y')
+            if month not in monthly_grades.keys():
+                monthly_grades[month] = dict()
+                if subject not in monthly_grades[month].keys():
+                    monthly_grades[month][subject.name] = 0
+                    rand_color = f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.2)'
+                    monthly_grades[month]["backgroundColor"] = rand_color
+                    monthly_grades[month]["borderColor"] = rand_color
+                    monthly_grades[month]["borderWidth"] = 1
+                    monthly_grades[month][subject.name] += grade.grade
+                else:
+                    monthly_grades[month][subject.name] += grade.grade
+            else:
+                if subject not in monthly_grades[month].keys():
+                    monthly_grades[month][subject.name] = 0
+                    rand_color = f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.2)'
+                    monthly_grades[month]["backgroundColor"] = rand_color
+                    monthly_grades[month]["borderColor"] = rand_color
+                    monthly_grades[month]["borderWidth"] = 1
+                    monthly_grades[month][subject.name] += grade.grade
+                else:
+                    monthly_grades[month][subject.name] += grade.grade
 
         subject_grades.append({
             'subject': subject,
@@ -73,6 +89,12 @@ def profile(request):
     }
 
     return render(request, 'grades/profile.html', context)
+def calculator(request):
+    student = request.user.student
+    context = {
+        'subjects': student.subjects.all()
+    }
+    return render(request, 'grades/calculator.html', context=context)
 
 def edit_profile(request):
     if request.method == 'POST':
