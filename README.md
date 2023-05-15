@@ -1,5 +1,4 @@
 # Чтобы запустить:
-***
 `git clone https://github.com/stepantishhen/Purrrfect-Grades`
 
 `cd Purrrfect-Grades/`
@@ -14,7 +13,6 @@
 
 `python manage.py runserver`
 # Перед коммитом:
-***
 `python manage.py dumpdata > data.json`
 
 Проверить добавление файлов, закомитить и запушить
