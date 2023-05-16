@@ -41,7 +41,6 @@ def profile(request):
     subjects = student.subjects.all()
 
     subject_grades = []
-    monthly_grades = {}  # словарь для хранения суммы оценок по месяцам
 
     for subject in subjects:
         grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
@@ -49,31 +48,6 @@ def profile(request):
         avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
         remaining_points = Purpose.objects.filter(student=student, subject=subject).first().value - total_grade if Purpose.objects.filter(student=student, subject=subject).first() is not None else 0
 
-
-        # вычисляем сумму оценок по месяцам
-        for grade in grades:
-            month = grade.receipt_at.strftime('%B %Y')
-            if month not in monthly_grades.keys():
-                monthly_grades[month] = dict()
-                if subject not in monthly_grades[month].keys():
-                    monthly_grades[month][subject.name] = 0
-                    rand_color = f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.2)'
-                    monthly_grades[month]["backgroundColor"] = rand_color
-                    monthly_grades[month]["borderColor"] = rand_color
-                    monthly_grades[month]["borderWidth"] = 1
-                    monthly_grades[month][subject.name] += grade.grade
-                else:
-                    monthly_grades[month][subject.name] += grade.grade
-            else:
-                if subject not in monthly_grades[month].keys():
-                    monthly_grades[month][subject.name] = 0
-                    rand_color = f'rgba({random.randint(0, 255)}, {random.randint(0, 255)}, {random.randint(0, 255)}, 0.2)'
-                    monthly_grades[month]["backgroundColor"] = rand_color
-                    monthly_grades[month]["borderColor"] = rand_color
-                    monthly_grades[month]["borderWidth"] = 1
-                    monthly_grades[month][subject.name] += grade.grade
-                else:
-                    monthly_grades[month][subject.name] += grade.grade
 
         subject_grades.append({
             'subject': subject,
@@ -85,16 +59,10 @@ def profile(request):
     context = {
         'student': student,
         'subject_grades': subject_grades,
-        'monthly_grades': monthly_grades  # добавляем словарь в контекст
+        'subjects': student.subjects.all()
     }
 
     return render(request, 'grades/profile.html', context)
-def calculator(request):
-    student = request.user.student
-    context = {
-        'subjects': student.subjects.all()
-    }
-    return render(request, 'grades/calculator.html', context=context)
 
 def edit_profile(request):
     if request.method == 'POST':
