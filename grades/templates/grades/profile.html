@@ -46,32 +46,58 @@
                 </tbody>
             </table>
             <div>
-  <canvas id="myChart"></canvas>
-</div>
+                <h4>Калькулятор</h4>
+                <hr>
+                <form>
+                  {% for subject in subjects %}
+                  <div class="form-group">
+                    <label for="{{ subject }}">{{ subject }}</label>
+                    <div class="slider-container">
+                      <input type="range" class="form-control-range slider" id="{{ subject }}" name="{{ subject }}" min="0" max="100">
+                      <div class="slider-value" id="{{ subject }}-value">0</div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <button type="submit" class="btn btn-primary">Рассчитать</button>
+                </form>
+                <style>
+                .slider-container {
+                  position: relative;
+                  width: 200px;
+                  margin: 0 auto;
+                }
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                .slider {
+                  width: 100%;
+                }
 
-<script>
-  const ctx = document.getElementById('myChart');
+                .slider-value {
+                  position: absolute;
+                  top: -20px;
+                  left: 0;
+                  width: 100%;
+                  text-align: center;
+                  font-size: 12px;
+                  color: #888;
+                }
+                </style>
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                  var sliders = document.querySelectorAll(".slider");
 
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-            {% for month in monthly_grades.keys %}
-            '{{ month }}',
-            {% endfor %}
-        ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+                  sliders.forEach(function(slider) {
+                    var subject = slider.getAttribute("id");
+                    var valueLabel = document.getElementById(subject + "-value");
+
+                    slider.addEventListener("input", function() {
+                      valueLabel.textContent = slider.value;
+                    });
+                  });
+                });
+                </script>
+
+
+            </div>
         </div>
 </div>
 {% endblock %}
