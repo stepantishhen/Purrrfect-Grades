@@ -1,1 +1,1 @@
-web: gunicorn grademaster.wsgi --log-file
+web: gunicorn grademaster.wsgi --log-file -
