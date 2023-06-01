@@ -33,44 +33,89 @@ def index(request):
 
 
 def profile(request):
-    # try:
-    #     data = SocialAccount.objects.get(user=request.user).extra_data
-    # except:
-    #     data = request.user
     student = request.user.student
     subjects = student.subjects.all()
 
     subject_grades = []
 
-    for subject in subjects:
-        grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
-        total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
-        if total_grade is None:
-            total_grade = 0
-        avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
-        if avg_grade is None:
-            avg_grade = 0
-        avg_grade = round(avg_grade, 1)
-        purpose = Purpose.objects.filter(student=student, subject=subject).first()
-        if purpose is None:
-            remaining_points = 0
-        else:
-            remaining_points = purpose.value - total_grade
+    if request.method == 'POST':
+        # Получение данных из формы
+        form_data = request.POST
+        for subject in subjects:
+            obj, created = Purpose.objects.update_or_create(
+                student=student,
+                subject=subject,
+                defaults={"value": form_data.get(subject.name)},
+            )
+        return redirect('profile')
+    else:
+        for subject in subjects:
+            grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
+            total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
+            if total_grade is None:
+                total_grade = 0
+            avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
+            if avg_grade is None:
+                avg_grade = 0
+            avg_grade = round(avg_grade, 1)
+            purpose = Purpose.objects.filter(student=student, subject=subject).first()
+            if purpose is None:
+                remaining_points = 0
+            else:
+                remaining_points = purpose.value - total_grade
 
-        subject_grades.append({
-            'subject': subject,
-            'total_grade': total_grade,
-            'avg_grade': avg_grade,
-            'remaining_points': remaining_points
-        })
-
-    context = {
-        'student': student,
-        'subject_grades': subject_grades,
-        'subjects': student.subjects.all()
-    }
-
-    return render(request, 'grades/profile.html', context)
+            subject_grades.append({
+                'subject': subject,
+                'total_grade': total_grade,
+                'avg_grade': avg_grade,
+                'remaining_points': remaining_points
+            })
+        # Отображение формы
+        context = {
+            'student': student,
+            'subject_grades': subject_grades,
+            'subjects': student.subjects.all()
+        }
+        return render(request, 'grades/profile.html', context)
+# def profile(request):
+#     # try:
+#     #     data = SocialAccount.objects.get(user=request.user).extra_data
+#     # except:
+#     #     data = request.user
+#     student = request.user.student
+#     subjects = student.subjects.all()
+#
+#     subject_grades = []
+#
+#     for subject in subjects:
+#         grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
+#         total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
+#         if total_grade is None:
+#             total_grade = 0
+#         avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
+#         if avg_grade is None:
+#             avg_grade = 0
+#         avg_grade = round(avg_grade, 1)
+#         purpose = Purpose.objects.filter(student=student, subject=subject).first()
+#         if purpose is None:
+#             remaining_points = 0
+#         else:
+#             remaining_points = purpose.value - total_grade
+#
+#         subject_grades.append({
+#             'subject': subject,
+#             'total_grade': total_grade,
+#             'avg_grade': avg_grade,
+#             'remaining_points': remaining_points
+#         })
+#
+#
+#     context = {
+#         'student': student,
+#         'subject_grades': subject_grades,
+#         'subjects': student.subjects.all()
+#     }
+#     return render(request, 'grades/profile.html', context)
 
 def edit_profile(request):
     if request.method == 'POST':

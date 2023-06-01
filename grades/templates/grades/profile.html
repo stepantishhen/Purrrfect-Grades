@@ -48,7 +48,8 @@
             <div>
                 <h4>Калькулятор</h4>
                 <hr>
-                <form>
+                <form method="POST">
+                {% csrf_token %}
                   {% for subject in subjects %}
                   <div class="form-group">
                     <label for="{{ subject }}">{{ subject }}</label>
