@@ -73,16 +73,19 @@ def profile(request):
                 'avg_grade': avg_grade,
                 'remaining_points': remaining_points
             })
-        min_grade = min(subject_grades, key=lambda x: x["total_grade"])
-        cat = ""
-        if 0 <= min_grade["total_grade"] <= 55:
+        try:
+            min_grade = min(subject_grades, key=lambda x: x["total_grade"])
+            cat = ""
+            if 0 <= min_grade["total_grade"] <= 55:
+                cat = "0-55.png"
+            elif 56 <= min_grade["total_grade"] <= 73:
+                cat = "56-73.png"
+            elif 74 <= min_grade["total_grade"] <= 85:
+                cat = "74-85.png"
+            elif 86 <= min_grade["total_grade"] <= 100:
+                cat = "86-100.png"
+        except ValueError:
             cat = "0-55.png"
-        elif 56 <= min_grade["total_grade"] <= 73:
-            cat = "56-73.png"
-        elif 74 <= min_grade["total_grade"] <= 85:
-            cat = "74-85.png"
-        elif 86 <= min_grade["total_grade"] <= 100:
-            cat = "86-100.png"
         # Отображение формы
         context = {
             'student': student,
