@@ -1,9 +1,8 @@
-import random
-
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from allauth.socialaccount.models import SocialAccount
+from django.templatetags.static import static
 
 from grades.forms import *
 from grades.models import *
@@ -49,6 +48,10 @@ def profile(request):
             )
         return redirect('profile')
     else:
+        subjects_purposes = {}
+        purposes = Purpose.objects.filter(student=student)
+        for purpose in purposes:
+            subjects_purposes[purpose.subject.name] = purpose.value
         for subject in subjects:
             grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
             total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
@@ -70,52 +73,25 @@ def profile(request):
                 'avg_grade': avg_grade,
                 'remaining_points': remaining_points
             })
+        min_grade = min(subject_grades, key=lambda x: x["total_grade"])
+        cat = ""
+        if 0 <= min_grade["total_grade"] <= 55:
+            cat = "0-55.png"
+        elif 56 <= min_grade["total_grade"] <= 73:
+            cat = "56-73.png"
+        elif 74 <= min_grade["total_grade"] <= 85:
+            cat = "74-85.png"
+        elif 86 <= min_grade["total_grade"] <= 100:
+            cat = "86-100.png"
         # Отображение формы
         context = {
             'student': student,
             'subject_grades': subject_grades,
-            'subjects': student.subjects.all()
+            'subjects': student.subjects.all(),
+            'subjects_purposes': subjects_purposes,
+            'cat': static(f"grades/assets/img/{cat}"),
         }
         return render(request, 'grades/profile.html', context)
-# def profile(request):
-#     # try:
-#     #     data = SocialAccount.objects.get(user=request.user).extra_data
-#     # except:
-#     #     data = request.user
-#     student = request.user.student
-#     subjects = student.subjects.all()
-#
-#     subject_grades = []
-#
-#     for subject in subjects:
-#         grades = Grade.objects.filter(student=student, subject=subject).order_by('created_at')
-#         total_grade = grades.aggregate(total_grade=Sum('grade'))['total_grade']
-#         if total_grade is None:
-#             total_grade = 0
-#         avg_grade = grades.aggregate(avg_grade=Avg('grade'))['avg_grade']
-#         if avg_grade is None:
-#             avg_grade = 0
-#         avg_grade = round(avg_grade, 1)
-#         purpose = Purpose.objects.filter(student=student, subject=subject).first()
-#         if purpose is None:
-#             remaining_points = 0
-#         else:
-#             remaining_points = purpose.value - total_grade
-#
-#         subject_grades.append({
-#             'subject': subject,
-#             'total_grade': total_grade,
-#             'avg_grade': avg_grade,
-#             'remaining_points': remaining_points
-#         })
-#
-#
-#     context = {
-#         'student': student,
-#         'subject_grades': subject_grades,
-#         'subjects': student.subjects.all()
-#     }
-#     return render(request, 'grades/profile.html', context)
 
 def edit_profile(request):
     if request.method == 'POST':
