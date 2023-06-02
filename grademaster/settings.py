@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     "django_bootstrap5",
     "bootstrap_datepicker_plus",
-    "grades.templatetags.custom_filters"
 ]
 
 MIDDLEWARE = [
@@ -69,9 +68,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries':{
-                'filter': 'grades.templatetags.custom_filters',
-            },
         },
     },
 ]

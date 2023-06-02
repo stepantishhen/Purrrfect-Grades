@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load custom_filters %}
 {% load static %}
 {% block content %}
     <div class="row">
@@ -47,8 +46,8 @@
                         <div class="form-group">
                             <label for="{{ subject }}">{{ subject }}</label>
                             <div class="slider-container">
-                                <input type="range" class="form-control-range slider" id="{{ subject }}" name="{{ subject }}" min="0" max="100" value="{{ subjects_purposes|get_item:subject }}">
-                                <div class="slider-value" id="{{ subject }}-value">{{ subjects_purposes|get_item:subject }}</div>
+                                <input type="range" class="form-control-range slider" id="{{ subject }}" name="{{ subject }}" min="0" max="100">
+                                <div class="slider-value" id="{{ subject }}-value">0</div>
                             </div>
                         </div>
                     {% endfor %}
