@@ -10,16 +10,8 @@
             <p><strong>Институт:</strong> {{ student.institution }}</p>
             <p><strong>Группа:</strong> {{ student.group }}</p>
             <hr>
-<!--            <h5>Дисциплины</h5>-->
-<!--            <ul>-->
-<!--                {% for sg in subject_grades %}-->
-<!--                <li>{{ sg.subject.name }} - {{ sg.total_grade }}/100</li>-->
-<!--                {% endfor %}-->
-<!--            </ul>-->
-<!--            <hr>-->
             <h5>Советы</h5>
-            <p>какой-то текст</p>
-            <img src="{% static 'grades/assets/img/cat-good.png' %}" class="img-fluid" alt="...">
+            <img src="{{ cat }}" class="img-fluid" alt="...">
 
         </div>
         <div class="col-md-8">
@@ -48,54 +40,55 @@
             <div>
                 <h4>Калькулятор</h4>
                 <hr>
-                <form>
-                  {% for subject in subjects %}
-                  <div class="form-group">
-                    <label for="{{ subject }}">{{ subject }}</label>
-                    <div class="slider-container">
-                      <input type="range" class="form-control-range slider" id="{{ subject }}" name="{{ subject }}" min="0" max="100">
-                      <div class="slider-value" id="{{ subject }}-value">0</div>
-                    </div>
-                  </div>
-                  {% endfor %}
-                  <button type="submit" class="btn btn-primary">Рассчитать</button>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for subject in subjects %}
+                        <div class="form-group">
+                            <label for="{{ subject }}">{{ subject }}</label>
+                            <div class="slider-container">
+                                <input type="range" class="form-control-range slider" id="{{ subject }}" name="{{ subject }}" min="0" max="100">
+                                <div class="slider-value" id="{{ subject }}-value">0</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Рассчитать</button>
                 </form>
                 <style>
-                .slider-container {
-                  position: relative;
-                  width: 200px;
-                  margin: 0 auto;
-                }
+                    .slider-container {
+                        position: relative;
+                        width: 200px;
+                        margin: 0 auto;
+                    }
 
-                .slider {
-                  width: 100%;
-                }
+                    .slider {
+                        width: 100%;
+                    }
 
-                .slider-value {
-                  position: absolute;
-                  top: -20px;
-                  left: 0;
-                  width: 100%;
-                  text-align: center;
-                  font-size: 12px;
-                  color: #888;
-                }
+                    .slider-value {
+                        position: absolute;
+                        top: -20px;
+                        left: 0;
+                        width: 100%;
+                        text-align: center;
+                        font-size: 12px;
+                        color: #888;
+                    }
                 </style>
                 <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                  var sliders = document.querySelectorAll(".slider");
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var sliders = document.querySelectorAll(".slider");
 
-                  sliders.forEach(function(slider) {
-                    var subject = slider.getAttribute("id");
-                    var valueLabel = document.getElementById(subject + "-value");
+                        sliders.forEach(function(slider) {
+                            var subject = slider.getAttribute("id");
+                            var valueLabel = document.getElementById(subject + "-value");
 
-                    slider.addEventListener("input", function() {
-                      valueLabel.textContent = slider.value;
+                            slider.addEventListener("input", function() {
+                                valueLabel.textContent = slider.value;
+                            });
+                        });
                     });
-                  });
-                });
                 </script>
             </div>
         </div>
-</div>
+    </div>
 {% endblock %}
